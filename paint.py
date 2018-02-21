@@ -42,7 +42,7 @@ class PaintApp:
 
     def save_image(self, event):
         name = self.image_name.get()
-        self.image.save('./triangles/'+name+'.jpg')
+        self.image.save('./other/'+name+'.jpg')
 
     def left_button_down(self, event=None):
         self.left_button = "down"
@@ -57,6 +57,10 @@ class PaintApp:
             self.pencil_draw(event)
 
     # Drawing with pencil
+
+    def feedforward(self, event=None):
+        return
+
     def pencil_draw(self, event=None):
         if self.left_button == "down":
             if self.xpos is not None and self.ypos is not None:
