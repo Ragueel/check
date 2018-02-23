@@ -109,5 +109,5 @@ training_data = converter.getMNIST()
 test_data = converter.getTest()
 print training_data
 
-SGD(training_data, 600, 5, 1.2, test_data=test_data)
+SGD(training_data, 600, 6, 3.5, test_data=test_data)
 print "Layout weights: {0}, Biases {1}".format(network_weights, network_biases)

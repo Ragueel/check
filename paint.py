@@ -42,7 +42,7 @@ class PaintApp:
 
     def save_image(self, event):
         name = self.image_name.get()
-        self.image.save('./training/'+name+'.jpg')
+        self.image.save('./training/triangles/'+name+'.jpg')
 
     def left_button_down(self, event=None):
         self.left_button = "down"

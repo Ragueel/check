@@ -9,7 +9,7 @@ class Converter:
     def __init__(self):
         self.getArray('./rectangles', np.array([[0], [1], [0]]))
         self.getArray('./triangles', np.array([[0], [0], [1]]))
-        self.getArray('./other', np.array([[1], [0], [0]]))
+        #self.getArray('./other', np.array([[1], [0], [0]]))
         #self.mnist_array = np.array(self.mnist_array)
 
     def getMNIST(self):
@@ -28,12 +28,16 @@ class Converter:
 
     def getTest(self):
         root_dir = './training'
-        images = os.listdir(root_dir)
-        for image in images:
-            inputd = np.reshape(self.convert_image(open(root_dir+"/"+image, 'rb')), (64*64,1))
-            inputd = np.array([x/255.0 for x in inputd])
-            self.test_data.append([inputd
-            ,np.array([[0], [1], [0]])])
+        test_dirs = os.listdir(root_dir)
+        print "START"
+        array_answer = np.array([[0],[1],[0]])
+        for folder in test_dirs:
+            for image in os.listdir(root_dir+"/"+folder):
+                inputd = np.reshape(self.convert_image(open(root_dir+"/"+folder+"/"+image, 'rb')), (64*64,1))
+                inputd = np.array([1.0/(x+1) for x in inputd])
+                self.test_data.append([inputd
+                ,array_answer])
+            array_answer = np.array([[0],[0],[1]])
         return self.test_data
 
 
@@ -44,5 +48,7 @@ class Converter:
             inputd = np.array([1.0/(x+1) for x in inputd])
             self.mnist_array.append([inputd
             ,image_type])
+
+        print "Data"
 
 converter = Converter()
