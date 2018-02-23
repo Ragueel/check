@@ -4,8 +4,16 @@ import numpy as np
 
 class Converter:
 
+    mnist_array = []
+    test_data = []
     def __init__(self):
-        return
+        self.getArray('./rectangles', np.array([[0], [1], [0]]))
+        self.getArray('./triangles', np.array([[0], [0], [1]]))
+        self.getArray('./other', np.array([[1], [0], [0]]))
+        #self.mnist_array = np.array(self.mnist_array)
+
+    def getMNIST(self):
+        return self.mnist_array
 
     def convert_image(self, path):
         image = PIL.Image.open(path).convert('L')
@@ -15,15 +23,26 @@ class Converter:
 
         data = np.array([data[offset:offset + width] for offset in range(0, width * height, width)])
 
-        print "Start"
         array = data.ravel()
-        return array
+        return np.array(array)
+
+    def getTest(self):
+        root_dir = './training'
+        images = os.listdir(root_dir)
+        for image in images:
+            inputd = np.reshape(self.convert_image(open(root_dir+"/"+image, 'rb')), (64*64,1))
+            inputd = np.array([x/255.0 for x in inputd])
+            self.test_data.append([inputd
+            ,np.array([[0], [1], [0]])])
+        return self.test_data
+
+
+    def getArray(self, root_dir, image_type):
+        images = os.listdir(root_dir)
+        for image in images:
+            inputd = np.reshape(self.convert_image(open(root_dir+"/"+image, 'rb')), (64*64,1))
+            inputd = np.array([1.0/(x+1) for x in inputd])
+            self.mnist_array.append([inputd
+            ,image_type])
 
 converter = Converter()
-root_dir = './rectangles'
-images = os.listdir(root_dir)
-filledData = np.empty([64*64, 3])
-for image in images:
-    print image
-    np.insert(converter.convert_image(open(root_dir + image,'rb')), np.array([0,1,0]))
-converter.convert_image(open('7.jpg','rb'))

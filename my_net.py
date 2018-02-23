@@ -1,6 +1,6 @@
 import numpy as np
 import random
-
+import mnist_converter
 
 input_layer = np.array([[0, 0], [1, 0], [0, 1], [1, 1]])
 test_input = np.array([[0,0], [1,1], [0,0], [1,0], [0,1]])
@@ -8,7 +8,7 @@ test_input = np.array([[0,0], [1,1], [0,0], [1,0], [0,1]])
 output_layer = np.array([[0], [0], [0], [1]])
 test_output = np.array([[0], [1], [0], [0], [0]])
 
-network_size = np.array([2, 2])
+network_size = np.array([64*64, 15, 3])
 num_of_layers = len(network_size)
 
 network_biases = [np.random.randn(y, 1) for y in network_size[1:]]
@@ -104,8 +104,10 @@ def SGD(training_data, number_of_epochs, mini_batch_size, eta, test_data=None):
             print "Epoch {0}: {1} / {2} ".format(epoch, evaluate(test_data), n_test)
 
 
-training_data = convert_data(input_layer, output_layer)
-test_data = convert_data(test_input, test_output)
+converter = mnist_converter.Converter()
+training_data = converter.getMNIST()
+test_data = converter.getTest()
+print training_data
 
-SGD(training_data, 30, 1, 1.0, test_data=test_data)
+SGD(training_data, 600, 5, 1.2, test_data=test_data)
 print "Layout weights: {0}, Biases {1}".format(network_weights, network_biases)
