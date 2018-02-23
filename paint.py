@@ -1,6 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageDraw
 # Class start
+# I used this class to draw 64x64 bit images
+
 class PaintApp:
 
     drawing_tool = "pencil"
@@ -41,7 +43,9 @@ class PaintApp:
         self.draw = ImageDraw.Draw(self.image)
 
     def save_image(self, event):
+        # Name of Image
         name = self.image_name.get()
+        # Saving image
         self.image.save('./training/triangles/'+name+'.jpg')
 
     def left_button_down(self, event=None):

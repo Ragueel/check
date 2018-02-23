@@ -1,12 +1,15 @@
 import PIL.Image
 import os
 import numpy as np
-
+# Converter class that helps us to convert
+# our images to something like mnist_array
+# with input and answer for it
 class Converter:
 
     mnist_array = []
     test_data = []
     def __init__(self):
+        # Here we are loading our training_data
         self.getArray('./rectangles', np.array([[0], [1], [0]]))
         self.getArray('./triangles', np.array([[0], [0], [1]]))
         #self.getArray('./other', np.array([[1], [0], [0]]))
@@ -27,9 +30,9 @@ class Converter:
         return np.array(array)
 
     def getTest(self):
+        # Loading test_data
         root_dir = './training'
         test_dirs = os.listdir(root_dir)
-        print "START"
         array_answer = np.array([[0],[1],[0]])
         for folder in test_dirs:
             for image in os.listdir(root_dir+"/"+folder):
@@ -49,6 +52,6 @@ class Converter:
             self.mnist_array.append([inputd
             ,image_type])
 
-        print "Data"
+        print "Collecting"
 
 converter = Converter()
