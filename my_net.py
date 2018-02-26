@@ -2,9 +2,8 @@ import numpy as np
 import random
 import mnist_converter
 
-# Here our network size it consist of 64*64 bit image some
-# 15 sigmoids and our output
-network_size = np.array([64*64, 15, 3])
+# Here our network size it consist of 64*64 bit image
+network_size = np.array([64*64, 4, 5,3])
 num_of_layers = len(network_size)
 
 # Filling our biases and weights with random number
@@ -113,5 +112,5 @@ training_data = converter.getMNIST()
 test_data = converter.getTest()
 print training_data
 
-SGD(training_data, 600, 6, 3.5, test_data=test_data)
+SGD(training_data, 600, 6, 0.35, test_data=test_data)
 print "Layout weights: {0}, Biases {1}".format(network_weights, network_biases)

@@ -46,7 +46,7 @@ class PaintApp:
         # Name of Image
         name = self.image_name.get()
         # Saving image
-        self.image.save('./training/triangles/'+name+'.jpg')
+        self.image.save('./triangles/'+name+'.jpg')
 
     def left_button_down(self, event=None):
         self.left_button = "down"
