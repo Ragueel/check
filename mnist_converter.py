@@ -43,6 +43,10 @@ class Converter:
             array_answer = np.array([[0],[0],[1]])
         return self.test_data
 
+    def fromPath(self, path):
+        inputd = np.reshape(self.convert_image(open(path,'rb')), (64*64,1))
+        inputd = np.array([1.0/(x+1) for x in inputd])
+        return inputd
 
     def getArray(self, root_dir, image_type):
         images = os.listdir(root_dir)
@@ -53,5 +57,3 @@ class Converter:
             ,image_type])
 
         print "Collecting"
-
-converter = Converter()

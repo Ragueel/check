@@ -1,5 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageDraw
+import mnist_converter
+import network
+import numpy as np
 # Class start
 # I used this class to draw 64x64 bit images
 
@@ -36,6 +39,11 @@ class PaintApp:
         self.drawing_area.bind("<Motion>", self.motion)
         self.drawing_area.bind("<ButtonPress-1>", self.left_button_down)
         self.drawing_area.bind("<ButtonRelease-1>", self.left_button_up)
+        self.neur = network.Network(np.array([64*64, 4, 5,3]))
+        self.mnist = mnist_converter.Converter()
+        training_data = self.mnist.getMNIST()
+        test_data = self.mnist.getTest()
+        self.neur.SGD(training_data, 600, 6, 0.075, test_data=test_data)
 
     def clear_canvas(self, event):
         self.drawing_area.delete("all")
@@ -46,7 +54,11 @@ class PaintApp:
         # Name of Image
         name = self.image_name.get()
         # Saving image
-        self.image.save('./triangles/'+name+'.jpg')
+        self.image.save('test'+name+'.jpg')
+        feed = self.mnist.fromPath('test'+name+'.jpg')
+        print 'test'+name
+        output = self.neur.feedforward(feed)
+        print output
 
     def left_button_down(self, event=None):
         self.left_button = "down"
