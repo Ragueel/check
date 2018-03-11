@@ -5,4 +5,6 @@ Here we are trying to teach computer to detect rectangles and triangles with pyt
 First we convert our 64x64 image to mnist array, then we teach our network with backpropogation
 <br>
 <br>
-run my_net.py to see how network is learning
+run paint.py and draw rectangle or triangle
+<br> 
+see output in terminal
